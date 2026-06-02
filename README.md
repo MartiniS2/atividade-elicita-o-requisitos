@@ -148,222 +148,290 @@ Durante o levantamento de requisitos foram utilizadas as seguintes técnicas:
 - Análise de necessidades institucionais.
 
 # Product Backlog
-Prioridade
-ID
-Requisito Funcional
-1
-RF05
-Comunicação Automática com Estudantes
-2
-RF01
-Monitoramento de Frequência
-3
-RF08
-Painel de Indicadores de Risco
-4
-RF02
-Emissão de Alertas Automáticos
-5
-RF10
-Análise de Rematrícula
-6
-RF06
-Solicitação de Apoio Estudantil
-7
-RF07
-Gerenciamento de Monitorias Acadêmicas
-8
-RF09
-Compartilhamento de Informações entre Setores
-9
-RF03
-Histórico Individual do Estudante
-10
-RF04
-Registro de Observações dos ProfessoreS
+
+| Prioridade | ID   | Requisito Funcional |
+|------------|------|---------------------|
+| 01 | RF05 | Comunicação Automática com Estudantes |
+| 02 | RF01 | Monitoramento de Frequência |
+| 03 | RF08 | Painel de Indicadores de Risco |
+| 04 | RF02 | Emissão de Alertas Automáticos |
+| 05 | RF10 | Análise de Rematrícula |
+| 06 | RF06 | Solicitação de Apoio Estudantil |
+| 07 | RF07 | Gerenciamento de Monitorias Acadêmicas |
+| 08 | RF09 | Compartilhamento de Informações entre Setores |
+| 09 | RF03 | Histórico Individual do Estudante |
+| 10 | RF04 | Registro de Observações dos Professores |
 
 
+---
 
-—
-#User Stories
+
+# User Stories
+
 US01 (RF05) – Comunicação Automática com Estudantes
+
 Card
+
 Como estudante em situação de risco acadêmico,
+
 eu quero receber mensagens automáticas de orientação,
+
 para que eu possa tomar medidas antes de comprometer meu desempenho acadêmico.
+
 Conversation
+
 As mensagens podem ser enviadas por e-mail ou notificação.
+
 Apenas estudantes classificados em risco devem receber mensagens.
+
 As mensagens devem conter orientações e canais de apoio.
+
 Confirmation
+
 O sistema deve enviar mensagens automaticamente para estudantes em risco.
+
 A mensagem deve conter orientações de apoio acadêmico.
+
 O envio deve ser registrado no sistema.
-—
+
+---
+
 US02 (RF01) – Monitoramento de Frequência
+
 Card
+
 Como coordenador acadêmico,
+
 eu quero acompanhar automaticamente a frequência dos estudantes,
+
 para que eu possa identificar possíveis casos de evasão.
+
 Conversation
+
 O sistema deve registrar faltas automaticamente.
+
 A frequência deve ser calculada em tempo real.
+
 Frequências abaixo de 75% devem gerar sinalização.
+
 Confirmation
+
 O sistema deve calcular a frequência automaticamente.
+
 O sistema deve registrar ausências consecutivas.
+
 O sistema deve sinalizar estudantes com frequência inferior a 75%.
-—
+
+---
+
 US03 (RF08)– Painel de Indicadores de Risco
+
 Card
+
 Como coordenador acadêmico,
+
 eu quero visualizar indicadores de risco em um painel centralizado,
+
 para que eu possa acompanhar rapidamente estudantes com risco de evasão.
+
 Conversation
+
 Os indicadores devem ser atualizados diariamente.
+
 O painel deve permitir filtros por curso e turma.
+
 Os dados devem ser apresentados de forma visual.
+
 Confirmation
+
 O painel deve exibir indicadores de risco.
+
 O sistema deve permitir filtros de pesquisa.
+
 Os dados devem ser atualizados automaticamente.
-—
+
+---
+
 US04 (RF02)– Emissão de Alertas Automáticos
+
 Card
+
 Como coordenador acadêmico,
+
 eu quero receber alertas automáticos sobre estudantes em situação de risco,
+
 para que eu possa agir preventivamente e reduzir a evasão.
+
 Conversation
+
 Os alertas devem considerar frequência e desempenho.
+
 Apenas usuários autorizados podem visualizar alertas.
+
 O alerta deve ser gerado automaticamente.
+
 Confirmation
+
 O sistema deve gerar alertas automaticamente.
+
 O alerta deve identificar o estudante em risco.
+
 O alerta deve ser exibido no painel da coordenação.
-—
+
+---
+
 US05 (RF10) – Análise de Rematrícula
+
 Card
+
 Como coordenador acadêmico,
+
 eu quero identificar estudantes que ainda não realizaram a rematrícula,
+
 para que eu possa entrar em contato antes do encerramento do prazo.
+
 Conversation
+
 O sistema deve verificar diariamente o status da rematrícula.
+
 Apenas estudantes pendentes devem aparecer na lista.
+
 A coordenação deve conseguir consultar a lista a qualquer momento.
+
 Confirmation
+
 O sistema deve listar estudantes sem rematrícula.
+
 A lista deve ser atualizada automaticamente.
+
 O coordenador deve conseguir visualizar os estudantes pendentes.
 
-#Cenários BDD
+
+
+# Cenários BDD
+
 US01 – Comunicação Automática com Estudantes
+
 Caminho Feliz
+
 Cenário: Envio automático de mensagem para estudante em risco
 
+
 Dado que o estudante João foi classificado como estudante em risco
+
 Quando o sistema realizar a análise diária
+
 Então uma mensagem automática deve ser enviada para João
+
 E o envio deve ser registrado no sistema
 
+
+
 Fluxo de Exceção
+
 Cenário: Falha no envio da mensagem
 
+
+
 Dado que o estudante João foi classificado como estudante em risco
+
 Quando o sistema tentar enviar uma mensagem
+
 E o serviço de e-mail estiver indisponível
+
 Então o envio não deve ser realizado
+
 E o sistema deve registrar a falha
 
-—
-#Cenários BDD
+
+
+---
+
+# Cenários BDD
+
 US02 – Monitoramento de Frequência
+
 Caminho Feliz
+
 Cenário: Identificação de baixa frequência
 
+
+
 Dado que o estudante João possui frequência de 80%
+
 Quando novas faltas forem registradas
+
 E sua frequência cair para 74%
+
 Então o sistema deve classificá-lo como estudante em risco
 
+
+
 Fluxo de Exceção
+
 Cenário: Falha no cálculo da frequência
 
+
+
 Dado que existem registros de presença incompletos
+
 Quando o sistema calcular a frequência
+
 Então deve informar inconsistência nos dados
+
 E não deve gerar indicadores de risco
 
-—
+
+
+---
+
 US04 – Emissão de Alertas Automáticos
+
 Caminho Feliz
+
 Cenário: Geração automática de alerta
 
+
+
 Dado que o estudante João está classificado como estudante em risco
+
 Quando o sistema concluir a análise dos dados
+
 Então um alerta deve ser criado
+
 E o coordenador deve ser notificado
 
+
+
 Fluxo de Exceção
+
 Cenário: Usuário sem permissão acessa alertas
 
+
+
 Dado que um usuário comum está autenticado
+
 Quando tentar visualizar os alertas de risco
+
 Então o sistema deve negar o acesso
+
 E exibir uma mensagem de permissão insuficiente
 
 
-#Autoavaliação INVEST
 
-Letra
-Critério
-US01
-US02
-US03
-US04
-US05
-I 
-Independent
-Sim
-Sim
-Sim
-Sim
-Sim
-N 
-Negotiable
-Sim
-Sim
-Sim
-Sim
-Sim
-V  
-Valuable
-Sim
-Sim
-Sim
-Sim
-Sim
-E  
-Estimable
-Sim
-Sim
-Sim
-Sim
-Sim
-S  
-Small
-Sim
-Sim
-Sim
-Sim
-Sim
-T  
-Testable
-Sim
-Sim
-Sim
-Sim
-Sim
+
+
+# Autoavaliação INVEST
+
+
+| Letra  | Critério    | US01 | US02 | US03 | US04 | US05 |
+|--------|-------------|------|------|------|------|------|
+| I      | Independent | Sim  | Sim  | Sim  | Sim  | Sim  |
+| N      | Negotiable  | Sim  | Sim  | Sim  | Sim  | Sim  |
+| V      | Valuable    | Sim  | Sim  | Sim  | Sim  | Sim  |
+| E      | Estimable   | Sim  | Sim  | Sim  | Sim  | Sim  |
+| S      | Small       | Sim  | Sim  | Sim  | Sim  | Sim  |
+| T      | Testable    | Sim  | Sim  | Sim  | Sim  | Sim  |
 
 
 
